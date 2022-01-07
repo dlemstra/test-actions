@@ -8,7 +8,8 @@ name: release
 jobs:
   test:
     runs-on: windows-2022
-
+    
+    steps:
     - name: Install Inno Setup
       shell: cmd
       run: |
