@@ -1,0 +1,16 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    
+name: release
+jobs:
+  test:
+    runs-on: windows-2022
+
+    - name: Install Inno Setup
+      shell: cmd
+      run: |
+        powershell Invoke-WebRequest -Uri https://github.com/ImageMagick/ImageMagick-Windows/releases/download/innosetup-6.2.0.exe -OutFile innosetup-6.2.0.exe
+        msiexec /i innosetup-6.2.0.exe /qn
