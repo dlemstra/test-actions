@@ -15,3 +15,4 @@ jobs:
       run: |
         powershell Invoke-WebRequest -Uri https://github.com/ImageMagick/ImageMagick-Windows/releases/download/20200615/innosetup-6.2.0.exe -OutFile innosetup-6.2.0.exe
         innosetup-6.2.0.exe /SILENT /SUPPRESSMSGBOXES /NORESTART /SP-
+        dir "C:\Program Files (x86)\Inno Setup 6"
