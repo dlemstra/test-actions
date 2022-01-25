@@ -11,6 +11,8 @@ jobs:
 
     steps:
     - name: Test
+      shell: cmd
       run: |
-        dir "c:\Strawberry"
-        type "c:\Strawberry\README.txt"
+        powershell Invoke-WebRequest -Uri https://github.com/ImageMagick/ImageMagick-Windows/releases/download/20200615/ffmpeg-4.2.3-win64.exe -OutFile ffmpeg.exe
+        copy /Y ffmpeg.exe C:\vcpkg
+        ffmpeg
