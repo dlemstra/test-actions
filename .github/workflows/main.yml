@@ -8,19 +8,15 @@ name: release
 jobs:
   test:
     runs-on: macos-11
-
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 1
-        repository: ImageMagick/ImageMagick
-
+    
     - name: Test
       shell: bash
       run: |
-        brew install autoconf automake libtool libomp llvm nasm ossp-uuid pkg-config ragel
-        export FLAGS="-O3 -fPIC"
-        export STRICT_FLAGS="${FLAGS} -Wall"
-        export PKG_PATH="/usr/local/lib/pkgconfig"
-        ./configure --disable-shared --disable-opencl --disable-assert --enable-static --enable-delegate-build --without-magick-plus-plus --without-utilities --disable-docs --without-x --with-rsvg --with-jxl --with-quantum-depth=8 --enable-hdri=no CFLAGS="$STRICT_FLAGS" CXXFLAGS="$STRICT_FLAGS" PKG_CONFIG_PATH="$PKG_PATH"
-
+         pip3 install meson==0.64.0
+         pip3 show -f meson
+         #find / -name meson 2>/dev/null
+         /Library/Frameworks/Python.framework/Versions/3.11/bin/meson -v
+         export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/3.11/bin
+         meson -v
+         /usr/local/share/vcpkg/scripts/buildsystems/meson -v
