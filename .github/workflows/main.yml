@@ -7,16 +7,15 @@ on:
 name: test
 jobs:
   test:
-    runs-on: macos-11
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        image:
+          - 'amazon/aws-lambda-dotnet:6'
+
+    container:
+      image: ${{ matrix.image }}
+
     steps:
-    
-    - name: Test
-      shell: bash
-      run: |
-         pip3 install meson==0.64.0
-         pip3 show -f meson
-         #find / -name meson 2>/dev/null
-         /Library/Frameworks/Python.framework/Versions/3.11/bin/meson -v
-         export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/3.11/bin
-         meson -v
-         /usr/local/share/vcpkg/scripts/buildsystems/meson -v
+    -  run: whoami
