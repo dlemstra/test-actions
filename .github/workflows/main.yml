@@ -7,15 +7,29 @@ on:
 name: test
 jobs:
   test:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        image:
-          - 'amazon/aws-lambda-dotnet:6'
-
-    container:
-      image: ${{ matrix.image }}
+    runs-on: windows-latest
 
     steps:
-    -  run: whoami
+    - uses: actions/checkout@v4
+      with:
+        path: ImageMagick
+
+    - uses: actions/checkout@v4
+      with:
+        repository: ImageMagick/ImageMagick-Windows
+        path: ImageMagick-Windows
+        ref: refs/heads/main
+
+    - name: Clone repositories
+      shell: cmd
+      run: |
+        cd ImageMagick
+        for /f "tokens=* USEBACKQ" %%F IN (`git rev-parse HEAD`) do set COMMIT_SHA=%%F
+        cd ..\ImageMagick-Windows
+        echo %COMMIT_SHA%
+        CloneRepositories.cmd e716f9e16e66f79294cb0f32870d1aee851846ff source
+     
+    - shell: cmd
+      run: |
+        cd ImageMagick-Windows
+        dir
