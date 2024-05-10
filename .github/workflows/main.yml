@@ -4,18 +4,14 @@ on:
     branches:
     - main
 
+permissions: read-all
+
 name: test
 jobs:
   test:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        image:
-          - 'amazon/aws-lambda-dotnet:6'
-
-    container:
-      image: ${{ matrix.image }}
+    runs-on: windows-latest
 
     steps:
-    -  run: whoami
+    - run: gh cs list
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
